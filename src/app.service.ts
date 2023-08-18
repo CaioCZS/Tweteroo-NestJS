@@ -9,15 +9,31 @@ export class AppService {
 
   constructor() {
     this.users = [];
-    this.users.push(new User('Usuario 1', 'foto de perfil1'));
+    this.users.push(
+      new User(
+        'Usuario 1',
+        'https://www.youtube.com/watch?v=lNs4__kTXUc&ab_channel=SpongeBoyLofi',
+      ),
+    );
     this.tweets = [];
     this.tweets.push(
-      new Tweet(new User('Usuario 1', 'foto de perfil1'), 'Primeiro Tweet'),
+      new Tweet(
+        new User(
+          'Usuario 1',
+          'https://www.youtube.com/watch?v=lNs4__kTXUc&ab_channel=SpongeBoyLofi',
+        ),
+        'Primeiro Tweet',
+      ),
     );
   }
 
   getHello(): string {
     return 'Hello World!';
+  }
+
+  signUp(user: User) {
+    this.users.push(user);
+    return this.users;
   }
 
   getTweets(): Tweet[] {
