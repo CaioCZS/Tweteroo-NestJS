@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Tweet } from './entities/tweet.entity';
 import { User } from './entities/user.entity';
+import { CreateTweetDto } from './dtos/create-tweet.dto';
 
 @Injectable()
 export class AppService {
@@ -9,31 +10,27 @@ export class AppService {
 
   constructor() {
     this.users = [];
-    this.users.push(
-      new User(
-        'Usuario 1',
-        'https://www.youtube.com/watch?v=lNs4__kTXUc&ab_channel=SpongeBoyLofi',
-      ),
-    );
     this.tweets = [];
-    this.tweets.push(
-      new Tweet(
-        new User(
-          'Usuario 1',
-          'https://www.youtube.com/watch?v=lNs4__kTXUc&ab_channel=SpongeBoyLofi',
-        ),
-        'Primeiro Tweet',
-      ),
-    );
   }
 
-  getHello(): string {
-    return 'Hello World!';
+  health(): string {
+    return "I'm okay!";
   }
 
   signUp(user: User) {
-    this.users.push(user);
-    return this.users;
+    return this.users.push(user);
+  }
+
+  postTweet(body: CreateTweetDto) {
+    const userIsLogged = this.users.find(
+      (user) => user._username === body.username,
+    );
+
+    if (userIsLogged) {
+      this.tweets.push(new Tweet(userIsLogged, body.tweet));
+    }
+
+    return userIsLogged;
   }
 
   getTweets(): Tweet[] {

@@ -3,4 +3,8 @@ export class User {
     private username: string,
     private avatar: string,
   ) {}
+
+  get _username() {
+    return this.username;
+  }
 }
