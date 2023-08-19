@@ -7,4 +7,7 @@ export class User {
   get _username() {
     return this.username;
   }
+  get _avatar() {
+    return this.avatar;
+  }
 }
