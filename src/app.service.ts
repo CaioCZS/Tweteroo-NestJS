@@ -43,11 +43,7 @@ export class AppService {
       return this.tweets.reverse().slice(min, max);
     }
 
-    if (this.tweets.length > 15) {
-      return this.tweets.reverse().slice(0, MAX_TWEETS_PER_PAGE);
-    }
-
-    return this.tweets;
+    return this.tweets.reverse().slice(0, MAX_TWEETS_PER_PAGE);
   }
 
   getTweetsUser(username: string) {
