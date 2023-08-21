@@ -13,7 +13,7 @@ import { AppService } from './app.service';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { CreateTweetDto } from './dtos/create-tweet.dto';
-import { PageQuery } from './types';
+import { PageQuery, UsernameParam } from './types';
 
 @Controller()
 export class AppController {
@@ -40,8 +40,8 @@ export class AppController {
   }
 
   @Get('tweets')
-  getTweets(@Query() params: PageQuery) {
-    const { page } = params;
+  getTweets(@Query() query: PageQuery) {
+    const { page } = query;
     if (page) {
       if (Number(page) < 1 || isNaN(page)) {
         throw new HttpException(
@@ -57,7 +57,8 @@ export class AppController {
   }
 
   @Get('/tweets/:username')
-  getTweetsUser(@Param('username') username: string) {
+  getTweetsUser(@Param() params: UsernameParam) {
+    const { username } = params;
     return this.appService.getTweetsUser(username);
   }
 }
